@@ -1,9 +1,10 @@
 (function(global){
 	
 	// Devuelve una Promise
-	global.ajax = function(url, method) {
+	// dataType = json|text|html
+	global.ajax = function(url, method, dataType) {
 
-		var promise = new Promise(function(resolve, reject) {
+		return promise = new Promise(function(resolve, reject) {
             var xhr;
 
             xhr = new XMLHttpRequest();
@@ -11,14 +12,18 @@
             xhr.onreadystatechange = function() {
                 var DONE = 4, // readyState 4 means the request is done.
                     OK = 200, // status 200 is a successful return.
-                    json;
+                    data;
 
                 if (xhr.readyState === DONE) {
                     if (xhr.status === OK) {
-                        json = JSON.parse(xhr.responseText);
-
+                    	if(dataType === "json") {
+							data = JSON.parse(xhr.responseText);
+                    	} else {
+                    		data = xhr.responseText;
+                    	}
+                        
                         // Resolve OK
-                        resolve(json);
+                        resolve(data);
                     } else {
                         // other error
                         reject({
