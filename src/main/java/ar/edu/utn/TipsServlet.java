@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,13 @@ public class TipsServlet {
     }
 
     @RequestMapping(path = "/randomTip", method = RequestMethod.GET)
-    public String getRandomTip() {
+    public String getRandomTip(HttpServletResponse response) {
+
+        // CORS headers
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "GET");
+
+        // get the tip
         int index = (int) (Math.random() * 10) % TIPS.size();
         return TIPS.get(index);
     }
