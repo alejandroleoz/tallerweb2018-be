@@ -3,8 +3,7 @@
 	// Devuelve una Promise
 	// dataType = json|text|html
 	global.ajax = function(url, method, dataType) {
-
-		return promise = new Promise(function(resolve, reject) {
+		return new Promise(function(resolve, reject) {
             var xhr;
 
             xhr = new XMLHttpRequest();
@@ -34,6 +33,10 @@
             };
             xhr.send();
         });
+	};
+
+	global.getTip = function() {
+		return this.ajax("https://tallerweb2018.herokuapp.com/randomTip", "GET", "text");
 	};
 
 })(window)
